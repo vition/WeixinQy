@@ -2,8 +2,8 @@
 /**
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
- * @Last Modified by:   oaWeb_admin
- * @Last Modified time: 2017-08-02 12:28:06
+ * @Last Modified by:   vition
+ * @Last Modified time: 2017-08-02 12:50:08
  */
 header("Content-type: text/html; charset=utf-8");
 require("Urllib.php");
@@ -60,8 +60,3 @@ class WeixinQy extends Urllib{
 		return new User($this->accessToken);
 	}
 }
-
-$WxQy=new WeixinQy("wx650b23fa694c8ff7","w_oV6aNTMaNUrOjwah0zupDxnWeYmtDR3QiUcD3Uqf584CpwYPB-U79QuhLLD_eJ");
-$dataArray=array("userid"=>'test3',"name"=>"测试账号","mobile"=>"13888888888","department"=>"1");
-$user=$WxQy->user()->departmentList(1);
-print_r($user);
