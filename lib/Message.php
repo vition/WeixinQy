@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 14:36:30
  * @Last Modified by:   369709991@qq.com
- * @Last Modified time: 2017-08-02 22:39:04
+ * @Last Modified time: 2017-08-03 05:37:32
  */
 include_once "WXBizMsgCrypt.php";
 class Message extends Urllib{
@@ -119,8 +119,27 @@ class Message extends Urllib{
 	    }  
 	}
 
-	function response($resutlXml){
-		$xmlArray=array("ToUserName","FromUserName","CreateTime","MsgType","Content","PicUrl","MediaId","MsgId","AgentID","Format","ThumbMediaId","Location_X","Location_Y","Scale","Label","Title","Description")
+	private function response($sRespData){
+		// $xmlArray=array("ToUserName","FromUserName","CreateTime","MsgType","Content","PicUrl","MediaId","MsgId","AgentID","Format","ThumbMediaId","Location_X","Location_Y","Scale","Label","Title","Description")
+		// $sRespData =   
+		// "<xml>  
+		// <ToUserName><![CDATA[".$resutlXml->FromUserName."]]></ToUserName>  
+		// <FromUserName><![CDATA[".$this->corpid."]]></FromUserName>  
+		// <CreateTime>".$this->sReqTimeStamp."</CreateTime>  
+		// <MsgType><![CDATA[text]]></MsgType>  
+		// <Content><![CDATA["."操作类型：".$mycontent."]]></Content>  
+		// </xml>";  
+		$sEncryptMsg = ""; //xml格式的密文  $reqFromUserName.
+		$errCode = $this->wxcpt->EncryptMsg($sRespData, $this->sReqTimeStamp, $this->sReqNonce, $sEncryptMsg);  
+		if ($errCode == 0) {    
+			print($sEncryptMsg);  
+		} else {  
+			print($errCode . "\n\n");  
+		}  
+	}
+
+	/*不同的发送方式不同*/
+	function resText(){
 		$sRespData =   
 		"<xml>  
 		<ToUserName><![CDATA[".$resutlXml->FromUserName."]]></ToUserName>  
@@ -129,12 +148,19 @@ class Message extends Urllib{
 		<MsgType><![CDATA[text]]></MsgType>  
 		<Content><![CDATA["."操作类型：".$mycontent."]]></Content>  
 		</xml>";  
-		$sEncryptMsg = ""; //xml格式的密文  $reqFromUserName.
-		$errCode = $this->wxcpt->EncryptMsg($sRespData, $this->sReqTimeStamp, $this->sReqNonce, $sEncryptMsg);  
-		if ($errCode == 0) {    
-			print($sEncryptMsg);  
-		} else {  
-			print($errCode . "\n\n");  
-		}  
+		//猜想
+		//$xmlBase="<xml>
+		//<ToUserName><![CDATA[toUser]]></ToUserName>
+		//<FromUserName><![CDATA[fromUser]]></FromUserName> 
+		//<CreateTime>1348831860</CreateTime>
+		//<Content><![CDATA[this is a test]]></Content>
+		//</xml>";
+		// $xml = new DOMDocument("1.0","UTF-8"); 
+		// $xml->loadXML($xmlBase); 
+		// $main=$xml->getElementsByTagName('xml');
+		// $abc=$xml->createElement("MsgType","<![CDATA[text]]>");
+		// $main->item(0)->appendChild($abc);
+		//  echo $xml->saveXML();
+		$this->response($sRespData);
 	}
 }
