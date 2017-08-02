@@ -3,9 +3,9 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-02 12:50:08
+ * @Last Modified time: 2017-08-02 13:00:18
  */
-header("Content-type: text/html; charset=utf-8");
+
 require("Urllib.php");
 
 class WeixinQy extends Urllib{
