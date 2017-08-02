@@ -2,8 +2,8 @@
 /**
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
- * @Last Modified by:   vition
- * @Last Modified time: 2017-08-02 17:00:38
+ * @Last Modified by:   369709991@qq.com
+ * @Last Modified time: 2017-08-02 23:35:44
  */
 
 include_once "lib/Urllib.php";
@@ -16,8 +16,11 @@ class WeixinQy extends Urllib{
 	protected $accessToken;
 	
 	/**
-	 * @param [type]
-	 * @param [type]
+	 * [__construct 构造方法]
+	 * @Author   vition
+	 * @DateTime 2017-08-02
+	 * @param    [type]
+	 * @param    [type]
 	 */
 	function __construct($corpid,$corpsecret){
 		$this->corpid=$corpid;
@@ -25,7 +28,7 @@ class WeixinQy extends Urllib{
 		$this->aTFile="accesstoken/".$this->corpsecret.".php";
 		$this->getToken();
 	}
-
+	
 	function getToken(){
 		if(file_exists($this->aTFile)){
 			$tokenData=json_decode(trim(substr($this->get($this->aTFile), 15)));
@@ -65,7 +68,13 @@ class WeixinQy extends Urllib{
 		return new Message($this->accessToken,$this->corpid);
 	}
 
-	/*获取应用*/
+	/**
+	 * @method   getAgent
+	 * @Author   vition
+	 * @DateTime 2017-08-02
+	 * @param    [type]
+	 * @return   [type]
+	 */
 	function getAgent($agentid){
 		return $this->get("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={$this->accessToken}&agentid={$agentid}");
 	}
