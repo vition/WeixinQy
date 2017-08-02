@@ -2,8 +2,8 @@
 /**
  * @Author: oaWeb_admin
  * @Date:   2017-08-02 10:51:59
- * @Last Modified by:   oaWeb_admin
- * @Last Modified time: 2017-08-02 11:21:18
+ * @Last Modified by:   vition
+ * @Last Modified time: 2017-08-02 14:46:02
  */
 
 class Urllib{
@@ -12,7 +12,7 @@ class Urllib{
 		return file_get_contents($url);
 	}
 
-	function post($url,$dataArray) {
+	function post($url,$dataArray=array()) {
 		$postDataJson = json_encode($dataArray,JSON_UNESCAPED_UNICODE);
 		$options = array(
 		'http' => array(
@@ -31,7 +31,7 @@ class Urllib{
 	 * @param  [数据]
 	 * @return [type]
 	 */
-	function curlPost($url,$dataArray){
+	function curlPost($url,$dataArray=array()){
 		$o='';
 		foreach ($dataArray as $k=>$v){
 			$o.="$k=".urlencode($v).'&';

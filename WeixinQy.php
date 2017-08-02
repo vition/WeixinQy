@@ -3,10 +3,10 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-02 13:00:18
+ * @Last Modified time: 2017-08-02 17:00:38
  */
 
-require("Urllib.php");
+include_once "lib/Urllib.php";
 
 class WeixinQy extends Urllib{
 
@@ -56,7 +56,23 @@ class WeixinQy extends Urllib{
 
 	/*用户管理*/
 	function user(){
-		require("User.php");
+		include_once "lib/User.php";
 		return new User($this->accessToken);
 	}
+	/*消息推送*/
+	function message(){
+		include_once "lib/Message.php";
+		return new Message($this->accessToken,$this->corpid);
+	}
+
+	/*获取应用*/
+	function getAgent($agentid){
+		return $this->get("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={$this->accessToken}&agentid={$agentid}");
+	}
+
+	/*网页授权 输出二维码*/
+	function webLogin($id,$appid,$agentid,$url){
+		echo '<script src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script><script> window.onload=function(){window.WwLogin({"id":"'.$id.'","appid" : "'.$appid.'","agentid" : "'.$agentid.'","redirect_uri" :"'.UrlEncode($url).'",});} </script>';
+	}
+
 }
