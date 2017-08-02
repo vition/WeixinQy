@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-02 18:42:13
+ * @Last Modified time: 2017-08-02 18:48:18
  */
 
 class User extends Urllib{
@@ -24,8 +24,15 @@ class User extends Urllib{
 			return $resultDataJson;
 		}
 	}
-	function getUserInfo($code){
-		return json_decode($this->get("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={$this->accessToken}&code={$code}"));
+	function getUserInfo($code,$detailed=false){
+		$resultData=json_decode($this->get("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={$this->accessToken}&code={$code}"));
+		if($detailed==true){
+			if($resultData->UserId!=""){
+				return $this->getUser($resultData->UserId);
+			}
+		}
+		return $resultData;
+		
 	}
 	function getUser($userid){
 		return json_decode($this->get("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={$this->accessToken}&userid={$userid}"));
