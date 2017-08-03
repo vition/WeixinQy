@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-03 09:11:12
+ * @Last Modified time: 2017-08-03 10:20:22
  */
 
 include_once "lib/Urllib.php";
@@ -14,6 +14,8 @@ class WeixinQy extends Urllib{
 	protected $corpsecret;
 	protected $aTFile;
 	protected $accessToken;
+	protected $User;
+	protected $Message;
 
 	/**
 	 * [__construct description]
@@ -57,13 +59,20 @@ class WeixinQy extends Urllib{
 
 	/*用户管理*/
 	function user(){
-		include_once "lib/User.php";
-		return new User($this->accessToken);
+		if(!is_object($this->User)){
+			include_once "lib/User.php";
+			$this->User=new User($this->accessToken);
+		}
+		return $this->User;
+
 	}
 	/*消息推送*/
 	function message(){
-		include_once "lib/Message.php";
-		return new Message($this->accessToken,$this->corpid);
+		if(!is_object($this->Message)){
+			include_once "lib/Message.php";
+			$this->Message=new Message($this->accessToken,$this->corpid);
+		}
+		return $this->Message;
 	}
 
 	/**

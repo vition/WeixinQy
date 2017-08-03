@@ -3,11 +3,12 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-02 18:48:18
+ * @Last Modified time: 2017-08-03 09:13:36
  */
 
 class User extends Urllib{
 	private $accessToken;
+
 
 	function __construct($accessToken){
 		$this->accessToken=$accessToken;
