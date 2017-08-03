@@ -2,8 +2,8 @@
 /**
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
- * @Last Modified by:   369709991@qq.com
- * @Last Modified time: 2017-08-02 23:35:44
+ * @Last Modified by:   vition
+ * @Last Modified time: 2017-08-03 09:11:12
  */
 
 include_once "lib/Urllib.php";
@@ -14,13 +14,11 @@ class WeixinQy extends Urllib{
 	protected $corpsecret;
 	protected $aTFile;
 	protected $accessToken;
-	
+
 	/**
-	 * [__construct 构造方法]
-	 * @Author   vition
-	 * @DateTime 2017-08-02
-	 * @param    [type]
-	 * @param    [type]
+	 * [__construct description]
+	 * @param [type] $corpid     [description]
+	 * @param [type] $corpsecret [description]
 	 */
 	function __construct($corpid,$corpsecret){
 		$this->corpid=$corpid;

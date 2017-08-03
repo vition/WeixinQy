@@ -2,8 +2,8 @@
 /**
  * @Author: vition
  * @Date:   2017-08-02 14:36:30
- * @Last Modified by:   369709991@qq.com
- * @Last Modified time: 2017-08-03 05:37:32
+ * @Last Modified by:   vition
+ * @Last Modified time: 2017-08-03 09:17:43
  */
 include_once "WXBizMsgCrypt.php";
 class Message extends Urllib{
@@ -139,14 +139,14 @@ class Message extends Urllib{
 	}
 
 	/*不同的发送方式不同*/
-	function resText(){
+	function resText($mycontent){
 		$sRespData =   
 		"<xml>  
 		<ToUserName><![CDATA[".$resutlXml->FromUserName."]]></ToUserName>  
 		<FromUserName><![CDATA[".$this->corpid."]]></FromUserName>  
 		<CreateTime>".$this->sReqTimeStamp."</CreateTime>  
 		<MsgType><![CDATA[text]]></MsgType>  
-		<Content><![CDATA["."操作类型：".$mycontent."]]></Content>  
+		<Content><![CDATA[".$mycontent."]]></Content>  
 		</xml>";  
 		//猜想
 		//$xmlBase="<xml>
