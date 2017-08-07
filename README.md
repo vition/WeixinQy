@@ -17,8 +17,14 @@
 ### 实例对象
 
 ```
+/*单一应用*/
     require("WeixinQy.php");
     $WxQy=new WeixinQy($corpid,$corpsecret);
+/*多个应用*/
+    $WxQy2=$WxQy->secret($corpsecret2);
+/*也可以直接操作，例如新建用户*/
+    $WxQy->secret($corpsecret3)->user()->createUser(array(数组形式，元素请参考官网));
+
 ```
 
 ### 用户管理

@@ -2,8 +2,8 @@
 /**
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
- * @Last Modified by:   vition
- * @Last Modified time: 2017-08-07 23:24:33
+ * @Last Modified by:   369709991@qq.com
+ * @Last Modified time: 2017-08-08 00:02:25
  */
 
 include_once "lib/Urllib.php";
@@ -30,6 +30,20 @@ class WeixinQy extends Urllib{
 		$this->getToken();
 	}
 	
+	/**
+	 * [secret 重新定义corpsecret]
+	 * @method   secret
+	 * @Author   vition
+	 * @DateTime 2017-08-08
+	 * @param    [type]     $corpsecret [description]
+	 * @return   [type]                 [返回当前对象]
+	 */
+	function secret($corpsecret){
+		$this->corpsecret=$corpsecret;
+		$this->aTFile="/accesstoken/".$this->corpsecret.".php";
+		$this->getToken();
+		return $this;
+	}
 	/**
 	 * [getToken 获取access token，缓存机制]
 	 * @return [type] [返回access token]
