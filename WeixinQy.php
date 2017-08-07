@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-03 10:20:22
+ * @Last Modified time: 2017-08-07 18:08:08
  */
 
 include_once "lib/Urllib.php";
@@ -90,5 +90,4 @@ class WeixinQy extends Urllib{
 	function webLogin($id,$appid,$agentid,$url){
 		echo '<script src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script><script> window.onload=function(){window.WwLogin({"id":"'.$id.'","appid" : "'.$appid.'","agentid" : "'.$agentid.'","redirect_uri" :"'.UrlEncode($url).'",});} </script>';
 	}
-
 }
