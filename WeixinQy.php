@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-07 18:01:41
+ * @Last Modified time: 2017-08-07 23:24:33
  */
 
 include_once "lib/Urllib.php";
@@ -26,7 +26,7 @@ class WeixinQy extends Urllib{
 	function __construct($corpid,$corpsecret){
 		$this->corpid=$corpid;
 		$this->corpsecret=$corpsecret;
-		$this->aTFile="accesstoken/".$this->corpsecret.".php";
+		$this->aTFile="/accesstoken/".$this->corpsecret.".php";
 		$this->getToken();
 	}
 	
@@ -43,8 +43,8 @@ class WeixinQy extends Urllib{
 				$this->accessToken= $tokenData->access_token;
 			}
 		}else{
-			if(!is_dir("accesstoken/")){
-				mkdir("accesstoken/");
+			if(!is_dir("/accesstoken/")){
+				mkdir("/accesstoken/");
 			}
 			$this->accessToken=$this->createToken();
 		}
@@ -57,6 +57,7 @@ class WeixinQy extends Urllib{
 	private function createToken(){
 		$accessTokenJson=$this->get("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={$this->corpid}&corpsecret={$this->corpsecret}");
 		$ATObject=json_decode($accessTokenJson);
+
 		if ($ATObject->access_token) {
 			$aTFile = fopen($this->aTFile, "w");
 			fwrite($aTFile, "<?php exit();?>" . json_encode(array("expire_time"=>time() + 7000,"access_token"=>$ATObject->access_token)));
@@ -118,7 +119,7 @@ class WeixinQy extends Urllib{
 	function jssdk(){
 		if(!is_object($this->Jssdk)){
 			include_once "lib/jssdk.php";
-			$this->Jssdk=new jssdk($this->corpid,$this->corpsecret);
+			$this->Jssdk=new jssdk($this->corpid,$this->corpsecret,$this->accessToken);
 		}
 		return $this->Jssdk;
 	}
