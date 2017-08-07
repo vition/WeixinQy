@@ -9,6 +9,7 @@
     * Urllib.php【post和get请求的相关类】
     * Message.php【发送信息和接收信心相应的相关类】   
     * User.php【用户和部门管理的类】
+    * jsapi_ticket.php和jssdk是企业微信JS-SDK工具软件
     * WXBIzMsgCrypt.php等其他文件【接收信息调用的相关类】
 
 ## 使用实例
@@ -97,3 +98,11 @@
     $WxQy->message()->resNews(新闻数据数组);
 ```
 
+### 企业微信JS-SDK
+
+```
+/*JS-SDK工具*/
+    $SignPackage=$WxQy->jssdk()->GetSignPackage();
+    返回的的数组是wx.config中需要的4个参数：appId，timestamp，nonceStr，signature
+
+```

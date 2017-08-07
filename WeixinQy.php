@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-03 11:00:27
+ * @Last Modified time: 2017-08-07 18:01:41
  */
 
 include_once "lib/Urllib.php";
@@ -14,6 +14,7 @@ class WeixinQy extends Urllib{
 	protected $corpsecret;/*应用或者管理员secret*/
 	protected $aTFile;/*相关的accesstoken文件*/
 	protected $accessToken;/*储存access_token*/
+	protected $Jssdk;
 	protected $User; /*实例化用户管理类*/
 	protected $Message;/*实例化消息管理类*/
 
@@ -42,6 +43,9 @@ class WeixinQy extends Urllib{
 				$this->accessToken= $tokenData->access_token;
 			}
 		}else{
+			if(!is_dir("accesstoken/")){
+				mkdir("accesstoken/");
+			}
 			$this->accessToken=$this->createToken();
 		}
 	}
@@ -104,7 +108,19 @@ class WeixinQy extends Urllib{
 	 * @return [type]          [description]
 	 */
 	function webLogin($id,$appid,$agentid,$url){
-		echo '<script src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script><script> window.onload=function(){window.WwLogin({"id":"'.$id.'","appid" : "'.$appid.'","agentid" : "'.$agentid.'","redirect_uri" :"'.UrlEncode($url).'",});} </script>';
+		return '<script src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"></script><script> window.onload=function(){window.WwLogin({"id":"'.$id.'","appid" : "'.$appid.'","agentid" : "'.$agentid.'","redirect_uri" :"'.UrlEncode($url).'",});} </script>';
+	}
+
+	/**
+	 * [jssdk 企业微信JS-SDK]
+	 * @return [type] [description]
+	 */
+	function jssdk(){
+		if(!is_object($this->Jssdk)){
+			include_once "lib/jssdk.php";
+			$this->Jssdk=new jssdk($this->corpid,$this->corpsecret);
+		}
+		return $this->Jssdk;
 	}
 
 }
