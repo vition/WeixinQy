@@ -3,7 +3,7 @@
  * @Author: vition
  * @Date:   2017-08-02 09:45:11
  * @Last Modified by:   vition
- * @Last Modified time: 2017-08-08 09:23:09
+ * @Last Modified time: 2017-08-08 18:58:17
  */
 
 include_once "lib/Urllib.php";
@@ -137,6 +137,31 @@ class WeixinQy extends Urllib{
 			$this->Jssdk=new jssdk($this->corpid,$this->corpsecret,$this->accessToken);
 		}
 		return $this->Jssdk;
+	}
+	/**
+	 * [upload 上传临时素材文件]
+	 * @param  [type] $type  [媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)]
+	 * @param  [type] $media [description]
+	 * @return [type]        [description]
+	 */
+	function upload($type,$media){
+		$resultDataJson=$this->post("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={$this->accessToken}&type={$type}",array("media"=>$media));
+		return json_decode($resultDataJson);
+	}
+
+	/**
+	 * [download 下载临时素材文件]
+	 * @param  [type] $media_id [媒体文件id]
+	 * @return [type]           [description]
+	 */
+	function download($media_id){
+		$url="https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={$this->accessToken}&media_id={$media_id}";
+		$header=get_headers($url);
+		if(strstr($header[0], "OK")){
+			$resultData=$this->get($url);
+			$suf=split("/", split(":", $header[2])[1]);
+			return array("type"=>$suf[1],"content"=>$resultData);
+		}
 	}
 
 }
