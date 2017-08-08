@@ -9,7 +9,7 @@
     * Urllib.php【post和get请求的相关类】
     * Message.php【发送信息和接收信心相应的相关类】   
     * User.php【用户和部门管理的类】
-    * jsapi_ticket.php和jssdk是企业微信JS-SDK工具软件
+    * jssdk是企业微信JS-SDK 获取签名的类
     * WXBIzMsgCrypt.php等其他文件【接收信息调用的相关类】
 
 ## 使用实例
@@ -17,8 +17,14 @@
 ### 实例对象
 
 ```
+/*单一应用*/
     require("WeixinQy.php");
     $WxQy=new WeixinQy($corpid,$corpsecret);
+/*多个应用*/
+    $WxQy2=$WxQy->secret($corpsecret2);
+/*也可以直接操作，例如新建用户*/
+    $WxQy->secret($corpsecret3)->user()->createUser(array(数组形式，元素请参考官网));
+
 ```
 
 ### 用户管理
